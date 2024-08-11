@@ -1,74 +1,79 @@
 # Navttc-Task-10-QR-Code-Generator
 
-# Age Calculator
+
+# QR Code Generator
 
 ## Description
 
-This Python script calculates the age of a person based on their birthdate. The script asks for the user's birthdate in the format `YYYY-MM-DD` and then calculates the age by comparing the birthdate with the current date.
+This Python script generates a QR code from a user-provided URL and saves it as an SVG file. It also displays the QR code in the terminal. The script utilizes the `pyqrcode` library to create the QR code.
 
 ## Code
 
 ```python
-from datetime import datetime
+import pyqrcode
+from pyqrcode import QRCode
 
-def calculate_age(birthdate):
-    today = datetime.today()
-    age = today.year - birthdate.year
-    
-    # Check if birthday has occurred this year
-    if (today.month, today.day) < (birthdate.month, birthdate.day):
-        age -= 1
-        
-    return age
+# String which represents the QR code
+content = input("Enter Your URL: ")
 
-# Input for birthdate
-birthdate_input = input("Enter your birthdate (YYYY-MM-DD): ")
-birthdate = datetime.strptime(birthdate_input, "%Y-%m-%d")
+# Generate QR code
+url = pyqrcode.create(content)
 
-# Calculate age
-age = calculate_age(birthdate)
-print("Your age is:", age)
+# SVG file creation
+file_name = input("Enter Your file name: ")
+file_name = file_name + ".svg"
+url.svg(file_name, scale = 5)
+
+# Display the QR code in the terminal
+print(url.terminal(quiet_zone=1))
 ```
 
 ## Steps
 
-1. **Import Required Module:**
-   - Import the `datetime` module, which is used to work with dates and times.
+1. **Import Required Modules:**
+   - Import the `pyqrcode` library and the `QRCode` class from `pyqrcode`.
 
-2. **Define the `calculate_age` Function:**
-   - This function takes the user's birthdate as input and calculates their age by comparing it with the current date.
-   - It also checks whether the user's birthday has occurred this year, adjusting the age accordingly.
+2. **Get User Input:**
+   - Prompt the user to input the URL they wish to convert into a QR code.
 
-3. **Get User's Birthdate:**
-   - Prompt the user to input their birthdate in the `YYYY-MM-DD` format.
+3. **Generate the QR Code:**
+   - Use the `pyqrcode.create()` function to generate a QR code from the provided URL.
 
-4. **Convert the Input to a Date Object:**
-   - Convert the input string into a `datetime` object using `strptime`.
+4. **Save the QR Code as an SVG File:**
+   - Ask the user to input a file name, and save the generated QR code as an SVG file with the specified name.
 
-5. **Calculate and Print the Age:**
-   - Call the `calculate_age` function to compute the age and print the result.
+5. **Display the QR Code in the Terminal:**
+   - The QR code is displayed in the terminal using the `terminal()` method of the `QRCode` object.
 
 ## How to Run
 
-1. **Ensure Python is Installed:**
+1. **Ensure Python and Required Libraries are Installed:**
    - Ensure Python is installed on your system. You can download it from [python.org](https://www.python.org/downloads/).
+   - Install the required `pyqrcode` library using the following command:
+     ```bash
+     pip install pyqrcode
+     ```
 
 2. **Save the Script:**
-   - Save the provided Python code into a file named `12-Age Calculator (Nasir Sharif).py`.
+   - Save the provided Python code into a file named `10-QR Code.py`.
 
 3. **Execute the Script:**
    - Open a terminal or command prompt.
-   - Navigate to the directory where `12-Age Calculator (Nasir Sharif).py` is saved.
+   - Navigate to the directory where `10-QR Code.py` is saved.
    - Run the script using the following command:
      ```bash
-     python 12-Age Calculator (Nasir Sharif).py
+     python 10-QR Code.py
      ```
 
-4. **Enter Birthdate:**
-   - Input your birthdate in the format `YYYY-MM-DD` when prompted.
+4. **Enter URL and File Name:**
+   - Input the URL you want to generate a QR code for and the desired file name when prompted.
 
 5. **View Output:**
-   - The script will display your age based on the provided birthdate.
+   - The QR code will be saved as an SVG file with the specified name, and it will also be displayed in the terminal.
+
+## Example
+
+- If you enter the URL `https://www.numl.edu.pk` and it will asks for the file name such as i have put  `Numl Website Link.svg`, the script will generate a QR code, save it as `Numl Webstie.svg`, and display it in the terminal.
 
 ## License
 
@@ -77,3 +82,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Contact
 
 For any questions or feedback, please contact Nasir Sharif at  nasirsharifqasoori786@gmail.com
+
